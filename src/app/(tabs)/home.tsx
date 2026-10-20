@@ -1,11 +1,16 @@
 import Brands from '@/components/shared/brands';
+import { layout } from '@/constant/layout';
+import { useTheme } from '@/hooks/use-theme';
+import { ThemeType } from '@/types/theme-types';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
   const { top } = useSafeAreaInsets();
+  const {colorScheme} = useTheme()
+  const styles = getStyles(colorScheme)
 
 
   return (
@@ -30,11 +35,20 @@ export default function HomeScreen() {
         <Text style={styles.brandsTitle}> Brands</Text>
         <Brands />
       </View>
+      <View style={styles.contentContainer}>
+        <Text style={styles.contentText}>Content</Text>
+        <Text style={styles.contentText}>Content</Text>
+        <Text style={styles.contentText}>Content</Text>
+        <Text style={styles.contentText}>Content</Text>
+        <Text style={styles.contentText}>Content</Text>
+        <Text style={styles.contentText}>Content</Text>
+        <Text style={styles.contentText}>Content</Text>
+      </View>
     </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
+const getStyles =(theme: ThemeType) => StyleSheet.create({
   container: {
     backgroundColor: "#000",
     padding: 24,
@@ -61,11 +75,21 @@ const styles = StyleSheet.create({
     marginTop: -64,
   },
   brandsTitle: {
+    fontFamily: layout.fonts.poppins.poppinsSemiBold,
     fontSize: 20,
-    fontWeight: "bold",
     color: "#fff",
     marginBottom: 8,
     marginLeft: 14,
   },
+
+  contentContainer: {
+    flex: 1,
+    backgroundColor: Platform.OS === "ios" ? layout.colors.iosBlack : layout.colors.androidBlack,
+
+  },
+  contentText: {
+    fontFamily: layout.fonts.poppins.poppinsSemiBold,
+    color: theme === "dark" ? layout.colors.white : layout.colors.black,
+  }
 
 });
