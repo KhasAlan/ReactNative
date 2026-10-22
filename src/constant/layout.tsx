@@ -1,10 +1,13 @@
 export const layout = {
     colors: {
-        primary: "F9B401",
+        primary: "#F9B401",
         white: "#FFFFFF",
         black: "#000000",
+        gray: "#808080",
         iosBlack: "blue",
         androidBlack: "green",
+        cardBackgroundLight: "#F5F6FA",
+        cardBackgroundDark: "#dcdcdc",
     },
     fonts: {
         poppins: {

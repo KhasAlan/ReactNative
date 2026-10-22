@@ -22,10 +22,9 @@ export default function Profile() {
     <SafeAreaView style={styles.container} edges={["left", "right"]}>
       <Header title="Profile" />
       <View style={styles.buttonContainer}>
-
-      <Button onPress={() => clearStorage()}>
-        <Text style={styles.buttonText}>Sign Out</Text>
-      </Button>
+        <Button onPress={() => clearStorage()}>
+          <Text style={styles.buttonText}>Sign Out</Text>
+        </Button>
       </View>
     </SafeAreaView>
 
@@ -34,7 +33,7 @@ export default function Profile() {
 
 const styles = StyleSheet.create({
   container: {
-    
+
   },
   text: {
     fontSize: 20,

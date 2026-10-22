@@ -1,20 +1,26 @@
 import Brands from '@/components/shared/brands';
+import Models from '@/components/shared/models';
 import { layout } from '@/constant/layout';
 import { useTheme } from '@/hooks/use-theme';
 import { ThemeType } from '@/types/theme-types';
 import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { Platform, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useState } from 'react';
+import { Pressable, RefreshControl, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
   const { top } = useSafeAreaInsets();
-  const {colorScheme} = useTheme()
+  const { colorScheme } = useTheme()
   const styles = getStyles(colorScheme)
 
 
+
   return (
-    <ScrollView>
+    <View
+      style={styles.contentContainer}
+    >
 
       <View style={[styles.container, { paddingTop: top + 16 }]}>
         <StatusBar style="light" />
@@ -35,20 +41,23 @@ export default function HomeScreen() {
         <Text style={styles.brandsTitle}> Brands</Text>
         <Brands />
       </View>
-      <View style={styles.contentContainer}>
-        <Text style={styles.contentText}>Content</Text>
-        <Text style={styles.contentText}>Content</Text>
-        <Text style={styles.contentText}>Content</Text>
-        <Text style={styles.contentText}>Content</Text>
-        <Text style={styles.contentText}>Content</Text>
-        <Text style={styles.contentText}>Content</Text>
-        <Text style={styles.contentText}>Content</Text>
+
+
+      <View style={styles.modelsHeader}>
+        <Text style={styles.modelsTitle}>Hot Deals</Text>
+        <Pressable onPress={() => router.push('/(tabs)/models')}>
+          <Text style={styles.viewAllText}>View All</Text>
+        </Pressable>
       </View>
-    </ScrollView>
+
+      <View style={styles.modelsContainer}>
+        <Models />
+      </View>
+    </View>
   );
 }
 
-const getStyles =(theme: ThemeType) => StyleSheet.create({
+const getStyles = (theme: ThemeType) => StyleSheet.create({
   container: {
     backgroundColor: "#000",
     padding: 24,
@@ -84,12 +93,31 @@ const getStyles =(theme: ThemeType) => StyleSheet.create({
 
   contentContainer: {
     flex: 1,
-    backgroundColor: Platform.OS === "ios" ? layout.colors.iosBlack : layout.colors.androidBlack,
-
+    backgroundColor: theme === "dark" ? layout.colors.black : layout.colors.white,
   },
-  contentText: {
-    fontFamily: layout.fonts.poppins.poppinsSemiBold,
-    color: theme === "dark" ? layout.colors.white : layout.colors.black,
-  }
+  modelsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 16,
+  },
+  modelsHeader: {
 
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 16,
+    marginBottom: 16,
+    paddingHorizontal: 16,
+  },
+  modelsTitle: {
+    fontFamily: "Poppins-SemiBold",
+    fontSize: 20,
+    color: theme === "dark" ? layout.colors.white : layout.colors.black,
+  },
+  viewAllText: {
+    fontFamily: layout.fonts.poppins.poppinsRegular,
+    fontSize: 16,
+    color: layout.colors.primary,
+  },
 });
